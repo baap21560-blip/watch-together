@@ -252,14 +252,8 @@
         }
     }
 
-    window.login = () => {
-        username = document.getElementById("username").value;
-        let password = document.getElementById("password").value;
-        if (!username) return alert("Enter a username");
-        if (password === "murphxadmin") isAdmin = true;
-        show("lobbyPage");
-        loadRooms();
-    }
+window.login = () => {
+
 
     function loadRooms() {
         onSnapshot(collection(db, "rooms"), snap => {
