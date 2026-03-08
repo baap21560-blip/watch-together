@@ -240,33 +240,41 @@
     let isAdmin = false;
     let room = "";
 
-    function show(pageId) {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-        document.getElementById(pageId).classList.add("active");
-        
-        // Use Grid for room page
-        if(pageId === 'roomPage') {
-            document.getElementById(pageId).style.display = 'grid';
-        } else {
-            document.getElementById(pageId).style.display = 'flex';
-        }
-    }
+function show(pageId){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.style.display="none";
+});
+
+const page = document.getElementById(pageId);
+
+if(pageId === "roomPage"){
+page.style.display="grid";
+}
+else{
+page.style.display="flex";
+}
+
+}
 
 window.login = () => {
 
+username = document.getElementById("username").value;
+const pass = document.getElementById("password").value;
 
-    function loadRooms() {
-        onSnapshot(collection(db, "rooms"), snap => {
-            let html = "";
-            snap.forEach(d => {
-                html += `<div class="room-card" onclick="joinRoom('${d.id}')">
-                            <strong>${d.id}</strong><br>
-                            <small style="color: #888;">Active now</small>
-                         </div>`;
-            });
-            document.getElementById("roomList").innerHTML = html;
-        });
-    }
+if(!username){
+alert("Enter username");
+return;
+}
+
+if(pass === "murphxadmin"){
+isAdmin = true;
+}
+
+show("lobbyPage");
+loadRooms();
+
+}
 
     window.createRoom = async () => {
         let r = prompt("Room Name:");
